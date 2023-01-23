@@ -1,7 +1,11 @@
 import "reflect-metadata"
+import * as dotenv from 'dotenv';
 import { DataSource } from "typeorm"
 import { User } from "./entity/User"
-import * as dotenv from 'dotenv';
+
+
+
+dotenv.config({ path: ".env" }); //permet d'éviter l'erreur "client Password must be a string"
 export const AppDataSource = new DataSource({
     type: "postgres",
     username: process.env.DB_USERNAME,
