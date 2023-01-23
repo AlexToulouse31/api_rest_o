@@ -5,10 +5,10 @@ export class Menu {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({length: 100})
     menuName: string
 
-    @Column()
+    @Column({length: 10})
     price: number
 
 }   
