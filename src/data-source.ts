@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import * as dotenv from 'dotenv';
 import { DataSource } from "typeorm"
-import { User } from "./entity/User"
+import { Users } from "./entity/Users"
 import { Menu } from "./entity/Menu"
 import { Restaurant } from "./entity/Restaurant"
 
@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
     port: 5432,
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [Users, Restaurant, Menu],
     migrations: [],
     subscribers: [],
 })
