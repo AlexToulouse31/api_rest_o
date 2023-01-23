@@ -7,10 +7,10 @@ export class Restaurant {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({ length: 100 })
     restoName: string
 
-    @Column()
+    @Column({ length: 50 })
 
     restoVille: string
 

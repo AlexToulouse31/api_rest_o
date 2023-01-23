@@ -3,6 +3,8 @@ import * as dotenv from 'dotenv';
 import { DataSource } from "typeorm"
 import { User } from "./entity/User"
 import { Menu } from "./entity/Menu"
+import { Restaurant } from "./entity/Restaurant"
+
 
 dotenv.config({ path: ".env" });// Permet d'éviter l'erreur "Client Password must be a string"
 
