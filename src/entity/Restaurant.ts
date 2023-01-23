@@ -1,14 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity()
-export class User {
+
+export class Restaurant {
 
     @PrimaryGeneratedColumn()
     id: number
 
     @Column({ length: 100 })
-    userName: string
+    restoName: string
 
-    @Column({ length: 255 })
-    password: string
+    @Column({ length: 50 })
+
+    restoVille: string
+
+
 }
