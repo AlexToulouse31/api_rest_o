@@ -4,6 +4,7 @@ import { DataSource } from "typeorm"
 import { Users } from "./entity/Users"
 import { Menu } from "./entity/Menu"
 import { Restaurant } from "./entity/Restaurant"
+import { Commande } from "./entity/Commande";
 
 
 dotenv.config({ path: ".env" });// Permet d'éviter l'erreur "Client Password must be a string"
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
     port: 5432,
     synchronize: true,
     logging: false,
-    entities: [Users, Restaurant, Menu],
+    entities: [Users, Restaurant, Menu, Commande],
     migrations: [],
     subscribers: [],
 })

@@ -1,14 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, JoinColumn, OneToOne } from "typeorm"
+import { Commande } from "./Commande"
 
 @Entity()
 export class Menu {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({length: 100})
+    @Column()
     menuName: string
 
-    @Column()
+    @Column({ type: 'money' })
     price: number
-
+    @Column()
+    commandeMenu: number
+    @OneToOne(() => Commande, (commande) => commande.menuComm)
+    @JoinColumn({ name: 'menuComm' })
+    commande: Commande[]
 }   
