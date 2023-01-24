@@ -1,19 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, BaseEntity } from "typeorm"
 import { Menu } from "./Menu"
 import { Restaurant } from "./Restaurant"
 import { Users } from "./Users"
 @Entity()
-export class Commande {
-    @PrimaryGeneratedColumn()
-    id: number
-    @Column()
-    usersComm: number
+export class Commande extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
-    menuComm: number
-    @Column()
-    restoComm: number
-    @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandeRest)
+  /*  @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandeRest)
     @JoinColumn({ name: 'commandeRest' })
     commande: Commande[]
     @ManyToOne(() => Users, (users) => users.commUsers)
@@ -21,5 +15,5 @@ export class Commande {
     users: Users[]
     @ManyToOne(() => Menu, (menu) => menu.commandeMenu)
     @JoinColumn({ name: 'commandeMenu' })
-    menu: Menu[]
+    menu: Menu[]*/
 }
