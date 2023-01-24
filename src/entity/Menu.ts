@@ -8,7 +8,7 @@ export class Menu {
     @Column({length: 100})
     menuName: string
 
-    @Column({length: 10})
+    @Column()
     price: number
 
 }   

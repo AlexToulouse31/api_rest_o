@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
     port: 5432,
     synchronize: true,
     logging: false,
-    entities: [Users],
+    entities: [Users, Restaurant, Menu],
     migrations: [],
     subscribers: [],
 })
