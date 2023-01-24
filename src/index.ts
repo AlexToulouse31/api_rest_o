@@ -1,11 +1,8 @@
 import { AppDataSource } from "./data-source"
-import { Users } from "./entity/Users"
-import { Restaurant } from "./entity/Restaurant"
-import { Menu } from "./entity/Menu"
-import { Commande } from "./entity/Commande"
 import express = require("express")
 import { Request, Response } from "express"
-import userRouter from "./routes/UserRouter"
+import userRouter from "./routes/UserRouter";
+
 
 AppDataSource.initialize().then(async () => {
     const app = express();
@@ -35,7 +32,8 @@ AppDataSource.initialize().then(async () => {
         next();
     });
     //Routes
-    app.use("/api", userRouter);
+    app.use("/api/users", userRouter);
+
     app.all("*", function (req, res) {
         res.status(404).end("index not found");
     });
@@ -43,5 +41,3 @@ AppDataSource.initialize().then(async () => {
         console.log(`Example app listening on port ${port}`);
     });
 }).catch(error => console.log(error))
-
-
