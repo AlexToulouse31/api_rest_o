@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { type } from "os"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn } from "typeorm"
+import { Commande } from "./Commande"
+import { Restaurant } from "./Restaurant"
 
 @Entity()
 export class Users {
@@ -6,9 +9,23 @@ export class Users {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ length: 100 })
+    @Column()
     userName: string
 
-    @Column({ length: 255 })
+    @Column()
     password: string
+    @Column()
+    admin: boolean
+    @Column()
+    restoUsers: number
+    @Column()
+    commUsers: number
+
+    @OneToMany(() => Restaurant, (restaurant) => restaurant.usersRest)
+    @JoinColumn({ referencedColumnName: 'usersRest' })
+    restaurant: Restaurant[]
+
+    @OneToMany(() => Commande, (commande) => commande.usersComm)
+    @JoinColumn({ name: 'usersComm' })
+    commande: Commande[]
 }
