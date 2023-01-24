@@ -1,10 +1,9 @@
-import { type } from "os"
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, BaseEntity } from "typeorm"
 import { Commande } from "./Commande"
 import { Restaurant } from "./Restaurant"
 
 @Entity()
-export class Users {
+export class Users extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number

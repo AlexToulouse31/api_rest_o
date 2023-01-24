@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, BaseEntity } from "typeorm"
 import { Menu } from "./Menu"
 import { Restaurant } from "./Restaurant"
 import { Users } from "./Users"
 @Entity()
-export class Commande {
+export class Commande extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
     @Column()

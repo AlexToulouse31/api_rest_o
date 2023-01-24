@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, JoinColumn, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, JoinColumn, OneToOne, BaseEntity } from "typeorm"
 import { Commande } from "./Commande"
 
 @Entity()
-export class Menu {
+export class Menu extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
     menuName: string
 
-    @Column({ type: 'money' })
+    @Column({ type: 'numeric' })
     price: number
     @Column()
     commandeMenu: number
