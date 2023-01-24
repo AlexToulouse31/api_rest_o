@@ -4,16 +4,10 @@ import { Restaurant } from "./Restaurant"
 import { Users } from "./Users"
 @Entity()
 export class Commande extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number
-    @Column()
-    usersComm: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
-    menuComm: number
-    @Column()
-    restoComm: number
-    @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandeRest)
+  /*  @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandeRest)
     @JoinColumn({ name: 'commandeRest' })
     commande: Commande[]
     @ManyToOne(() => Users, (users) => users.commUsers)
@@ -21,5 +15,5 @@ export class Commande extends BaseEntity {
     users: Users[]
     @ManyToOne(() => Menu, (menu) => menu.commandeMenu)
     @JoinColumn({ name: 'commandeMenu' })
-    menu: Menu[]
+    menu: Menu[]*/
 }

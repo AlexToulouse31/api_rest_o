@@ -24,8 +24,8 @@
       "typeorm": "0.3.11"
    },
    "scripts": {
-      "start": "ts-node src/index.ts",
-     "stat db" : "nodemon",
+      "start": "nodemon src/index.ts",
+     
       "typeorm": "typeorm-ts-node-commonjs"
    }
 }

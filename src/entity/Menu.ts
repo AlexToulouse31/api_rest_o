@@ -6,14 +6,13 @@ export class Menu extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column('varchar')
     menuName: string
 
     @Column({ type: 'numeric' })
     price: number
-    @Column()
-    commandeMenu: number
-    @OneToOne(() => Commande, (commande) => commande.menuComm)
-    @JoinColumn({ name: 'menuComm' })
-    commande: Commande[]
+
+    /*   @OneToOne(() => Commande, (commande) => commande.menuComm)
+        @JoinColumn({ name: 'menuComm' })
+        commande: Commande[]*/
 }   

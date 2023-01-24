@@ -7,21 +7,18 @@ import { Users } from "./Users"
 
 export class Restaurant extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
+  @Column('varchar')
 
-    restoVille: string
-    @Column()
-    commandeRest: number
-    @Column()
-    usersRest: number
-    @ManyToOne(() => Users, (users) => users.restoUsers)
+  restoVille: string
+
+  /*  @ManyToOne(() => Users, (users) => users.restoUsers)
     @JoinColumn({ name: 'restoUsers' })
     users: Users[]
-
-    @OneToMany(() => Commande, (commande) => commande.restoComm)
-    @JoinColumn({ name: 'restoComm' })
-    commande: Commande[]
+ 
+      @OneToMany(() => Commande, (commande) => commande.restoComm)
+      @JoinColumn({ name: 'restoComm' })
+      commande: Commande[]*/
 }
