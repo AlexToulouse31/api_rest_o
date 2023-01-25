@@ -14,11 +14,5 @@ export class Restaurant extends BaseEntity {
 
   restoVille: string
 
-  @ManyToOne(() => Users, (users) => users.userName)
-  @JoinColumn({ name: 'userName' })
-  users: Users[]
 
-  @OneToMany(() => Commande, (commande) => commande.id)
-  @JoinColumn({ name: 'id' })
-  commande: Commande[]
 }

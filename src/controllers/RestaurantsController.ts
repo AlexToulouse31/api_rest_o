@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { BaseEntity } from "typeorm";
+import { Restaurant } from "../entity/Restaurant";
 import { RestaurantService } from "../services/RestaurantsService";
 
 
@@ -16,6 +17,15 @@ export class RestaurantController extends BaseEntity {
             });
             return;
         }
+        /*   if (restoVille === RestaurantService[0].restoVille) {
+               res.status(400).json({
+                   status: "Fail",
+                   message: "Restaurant dèjà existant"
+               });
+               return;
+           }
+   */
+        console.log(Restaurant);
 
         try {
             const restau = await restaurantService.addRestaurant(restoVille);
@@ -62,6 +72,16 @@ export class RestaurantController extends BaseEntity {
         }
 
     }
+    async getRestaurantById(req: Request, res: Response) {
+        const restoid: number = parseInt(req.params.id);
+        const chercheResto = await restaurantService.getRestaurantById(restoid);
+        res.status(201).json({
+            status: "success",
+            message: " Ok",
+            data: chercheResto
+
+        });
+    }
     async deleteRestaurant(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
         try {
@@ -83,11 +103,7 @@ export class RestaurantController extends BaseEntity {
         const restoId = parseInt(req.params.id);
         const restoVille: string = req.body.restaurant;
 
-
         const putResto = await restaurantService.updateRestaurant(restoId, restoVille);
-        console.log(putResto);
-
-
 
         res.status(200).json({
             status: "Success",
