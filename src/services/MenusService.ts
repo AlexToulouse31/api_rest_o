@@ -19,12 +19,16 @@ export class MenusService extends BaseEntity {
         return undefined
     }
 
-    async addMenu(restoMenu: string): Promise<Menu[] | undefined> {
+    async addMenu(restoMenu: string, priceMenu: number): Promise<Menu | undefined> {
         const menu = new Menu();
+        console.log(menu);
+
         menu.menuName = restoMenu;
+        menu.price = priceMenu;
         await Menu.save(menu);
         if (menu) {
-            return menu[0];
+
+            return menu;
         }
         return undefined
     }
@@ -38,9 +42,10 @@ export class MenusService extends BaseEntity {
         return undefined
     }
 
-    async putMenu(id: number, menuName: string): Promise<Menu[] | undefined> {
-        const updateMenu: Menu[] | undefined = await Menu.findBy({ menuName });
-        updateMenu[0].menuName
+    async putMenu(id: number, name: string, price: number): Promise<Menu[] | undefined> {
+        const updateMenu: Menu[] | undefined = await Menu.findBy({ id });
+        updateMenu[0].menuName = name
+        updateMenu[0].price = price
 
         await Menu.save(updateMenu);
         if (updateMenu) {

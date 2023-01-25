@@ -8,8 +8,11 @@ const menuService = new MenusService();
 export class MenusController extends BaseEntity {
 
     async addMenu(req: Request, res: Response) {
-        const restoMenu: string = req.body.Menu;
-        if  (restoMenu !== restoMenu.toString()) {
+        const restoMenu: string = req.body.menu;
+        const priceMenu: number = req.body.price;
+
+
+        if (restoMenu !== restoMenu.toString()) {
             res.status(400).json({
                 status: "FAIL",
                 message: "le nom du menu doit être une chaine de caractère"
@@ -17,7 +20,9 @@ export class MenusController extends BaseEntity {
             return;
         }
         try {
-            const menu = await menuService.addMenu(restoMenu);
+            const menu = await menuService.addMenu(restoMenu, priceMenu);
+
+
             if (menu) {
                 res.status(201).json({
                     status: "Create",
@@ -78,8 +83,9 @@ export class MenusController extends BaseEntity {
 
     async putMenu(req: Request, res: Response) {
         const restoId = parseInt(req.params.id);
-        const restoMenu: string = req.body.menu;
-        const putMenu = await menuService.putMenu(restoId, restoMenu);
+        const name: string = req.body.menu;
+        const price: number = req.body.price
+        const putMenu = await menuService.putMenu(restoId, name, price);
         res.status(200).json({
             status: "Success",
             message: "Modification effectuée",
