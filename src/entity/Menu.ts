@@ -12,7 +12,7 @@ export class Menu extends BaseEntity {
     @Column({ type: 'numeric' })
     price: number
 
-    /*   @OneToOne(() => Commande, (commande) => commande.menuComm)
-        @JoinColumn({ name: 'menuComm' })
-        commande: Commande[]*/
+    @OneToOne(() => Commande, (commande) => commande.id)
+    @JoinColumn({ name: 'id' })
+    commande: Commande[]
 }   

@@ -1,8 +1,8 @@
-import { type } from "os"
+
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, BaseEntity } from "typeorm"
 import { Commande } from "./Commande"
 import { Restaurant } from "./Restaurant"
-
+import { UsersService } from "../services/UsersService"
 @Entity()
 export class Users extends BaseEntity {
 
@@ -12,16 +12,18 @@ export class Users extends BaseEntity {
     @Column()
     userName: string
 
-    @Column()
-    password: string
-    @Column('boolean')
-    admin: boolean
+  @Column()
+  password: string
+  @Column({ type: 'boolean', default: false })
+  admin: boolean
 
 
-    /*  @OneToMany(() => Restaurant, (restaurant) => restaurant.usersRest)
-        @JoinColumn({ referencedColumnName: 'usersRest' })
-        restaurant: Restaurant[]
-        @OneToMany(() => Commande, (commande) => commande.usersComm)
-        @JoinColumn({ name: 'usersComm' })
-        commande: Commande[]*/
+  @OneToMany(() => Restaurant, (restaurant) => restaurant.restoVille)
+  @JoinColumn({ referencedColumnName: 'restoVille' })
+  restaurant: Restaurant[]
+
+  @OneToMany(() => Commande, (commande) => commande.id)
+  @JoinColumn({ name: 'id' })
+  commande: Commande[]
+
 }
