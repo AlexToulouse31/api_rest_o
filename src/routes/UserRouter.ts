@@ -4,9 +4,10 @@ import { UsersController } from "../controllers/UsersController"
 
 const userRouter = Router()
 const usersController = new UsersController();
-
+//Routes Users
 userRouter.post("/register", usersController.register);
-userRouter.get("/login", usersController.login);
+userRouter.post("/login", usersController.login);
+userRouter.get("/", usersController.allUsers);
 
 
 export default userRouter;

@@ -8,6 +8,7 @@ export class UsersService extends BaseEntity {
     //fonction pour l'admin
     async allUser(): Promise<Users[] | undefined> {
         const users: Users[] | undefined = await Users.find();
+
         if (users) {
             return users;
         }

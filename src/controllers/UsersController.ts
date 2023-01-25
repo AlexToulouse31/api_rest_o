@@ -3,6 +3,7 @@ import { BaseEntity } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import * as jwt from "jsonwebtoken";
 import { UsersService } from "../services/UsersService";
+import { Users } from "../entity/Users";
 const usersService = new UsersService();
 const accessTokenSecret = process.env.ACCESSTOKENSECRET;
 export class UsersController extends BaseEntity {
@@ -61,6 +62,27 @@ export class UsersController extends BaseEntity {
                 console.log(err.stack);
             }
         });
+    }
+    async allUsers(req: Request, res: Response) {
+
+        try {
+
+            const data = await usersService.allUser();
+
+
+            res.status(201).json({
+                status: "success",
+                message: " success",
+                data: data
+
+            });
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: "register erreur serveur",
+            });
+            console.log(err.stack);
+        }
     }
 }
 
