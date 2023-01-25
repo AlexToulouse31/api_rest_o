@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import { decode } from "punycode";
+
 
 const accessTokenSecret: string = process.env.ACCESSTOKENSECRET;
-const authenticateJWT = (req: Request, res: Response, next: () => void) => {
+export const authenticateJWT = (req: Request, res: Response, next: () => void) => {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(" ")[1];
     if (authHeader) {
@@ -15,7 +15,7 @@ const authenticateJWT = (req: Request, res: Response, next: () => void) => {
                 });
             }
 
-            // req.userId = decode;
+            //    req.userId = decode;
             next();
         });
     } else {
@@ -50,7 +50,7 @@ const authenticateJWT = (req: Request, res: Response, next: () => void) => {
 
 
 
-        
+
         res.sendStatus(401).json({
             status: "Fail",
             message: "Utilisateur inconnu",

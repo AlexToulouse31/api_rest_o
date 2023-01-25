@@ -1,5 +1,5 @@
 //import * as dotenv from 'dotenv';
-import { Admin, BaseEntity } from 'typeorm';
+import { BaseEntity } from 'typeorm';
 import { Users } from '../entity/Users';
 
 //dotenv.config({ path: ".env" });// Permet d'éviter l'erreur "Client Password must be a string"

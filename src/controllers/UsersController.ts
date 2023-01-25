@@ -3,7 +3,7 @@ import { BaseEntity } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import * as jwt from "jsonwebtoken";
 import { UsersService } from "../services/UsersService";
-import { Users } from "../entity/Users";
+
 const usersService = new UsersService();
 const accessTokenSecret = process.env.ACCESSTOKENSECRET;
 export class UsersController extends BaseEntity {

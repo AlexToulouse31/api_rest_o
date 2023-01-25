@@ -2,6 +2,7 @@ import { AppDataSource } from "./data-source"
 import express = require("express")
 import { Request, Response } from "express"
 import userRouter from "./routes/UserRouter";
+import restaurantRouter from "./routes/RestaurantsRouter";
 
 
 AppDataSource.initialize().then(async () => {
@@ -33,6 +34,7 @@ AppDataSource.initialize().then(async () => {
     });
     //Routes
     app.use("/api/users", userRouter);
+    app.use("/api/restaurant", restaurantRouter)
 
     app.all("*", function (req, res) {
         res.status(404).end("index not found");
