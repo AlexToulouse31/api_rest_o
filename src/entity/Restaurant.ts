@@ -11,14 +11,12 @@ export class Restaurant extends BaseEntity {
   id: number
 
   @Column('varchar')
-
   restoVille: string
 
   /*  @ManyToOne(() => Users, (users) => users.restoUsers)
     @JoinColumn({ name: 'restoUsers' })
     users: Users[]
- 
-      @OneToMany(() => Commande, (commande) => commande.restoComm)
-      @JoinColumn({ name: 'restoComm' })
-      commande: Commande[]*/
+    @OneToMany(() => Commande, (commande) => commande.restoComm)
+    @JoinColumn({ name: 'restoComm' })
+    commande: Commande[]*/
 }
