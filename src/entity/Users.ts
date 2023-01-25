@@ -6,11 +6,11 @@ import { UsersService } from "../services/UsersService"
 @Entity()
 export class Users extends BaseEntity {
 
-  @PrimaryGeneratedColumn()
-  id: number
+    @PrimaryGeneratedColumn()
+    id: number
 
-  @Column()
-  userName: string
+    @Column()
+    userName: string
 
   @Column()
   password: string

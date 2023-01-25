@@ -11,7 +11,6 @@ export class Restaurant extends BaseEntity {
   id: number
 
   @Column('varchar')
-
   restoVille: string
 
 
