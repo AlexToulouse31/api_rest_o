@@ -8,7 +8,7 @@ import menuRouter from "./routes/MenusRouter";
 
 AppDataSource.initialize().then(async () => {
     const app = express();
-    const port = 8000;
+    const port = 3000;
     app.use(express.json())
 
 

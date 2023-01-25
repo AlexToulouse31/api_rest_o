@@ -18,12 +18,12 @@ export class Users extends BaseEntity {
   admin: boolean
 
 
-  @OneToMany(() => Restaurant, (restaurant) => restaurant.restoVille)
+  /*@OneToMany(() => Restaurant, (restaurant) => restaurant.restoVille)
   @JoinColumn({ referencedColumnName: 'restoVille' })
   restaurant: Restaurant[]
 
   @OneToMany(() => Commande, (commande) => commande.id)
   @JoinColumn({ name: 'id' })
-  commande: Commande[]
+  commande: Commande[]*/
 
 }
