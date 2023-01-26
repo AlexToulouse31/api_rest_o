@@ -7,8 +7,8 @@ import { authenticateJWT } from "../middleware/auth";
 const userRouter = Router();
 const usersController = new UsersController();
 
-userRouter.post("/register",authenticateJWT, Admin, usersController.register);
-userRouter.post("/login",authenticateJWT, Admin,usersController.login);
+userRouter.post("/register", usersController.register);
+userRouter.post("/login", usersController.login);
 userRouter.get("/",authenticateJWT, Admin,usersController.allUsers);
 
 
