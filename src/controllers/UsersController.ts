@@ -12,21 +12,8 @@ export class UsersController extends BaseEntity {
     async login(req: Request, res: Response) {
         const name: string = req.body.username;
         const password: string = req.body.password;
-
         try {
-            const user = await usersService.getUserByName(name);
-            /*const username = (await usersService.allUser());
-              const nomchercher = username.filter((elm) => elm.userName.includes(name))
-                console.log(nomchercher);
-    
-                if (name) {
-                    res.status(400).json({
-                        status: "Erreur",
-                        message: "Utilisateur déjà existant",
-    
-                    });
-                    return;
-                }*/
+            const user = await usersService.getUserByName(name)
             const dataPassword = usersService.getUserByName(password)
             if (dataPassword) {
                 res.status(404).json({
@@ -34,8 +21,6 @@ export class UsersController extends BaseEntity {
                     message: "password incorrect",
                     data: null,
                 });
-
-
             }
             if (user) {
                 bcrypt.compare(password, user.password, async function (err, result) {
@@ -68,7 +53,7 @@ export class UsersController extends BaseEntity {
         const name: string = req.body.username;
         const password: string = req.body.password;
 
-        if (!name.toString()) {
+        if (!name.toString() || !password.toString()) {
             res.status(400).json({
                 status: "Erreur",
                 message: "Veuillez utiliser le format chaine de caractère",
@@ -76,21 +61,11 @@ export class UsersController extends BaseEntity {
             });
             return;
         }
-        if (!password.toString()) {
+        const verifRegister = await usersService.getUserByName(name);
+        if (verifRegister) {
             res.status(400).json({
-                status: "Erreur",
-                message: "Veuillez utiliser le format chaine de caractère",
-
-            });
-            return;
-        }
-
-        const dataUser = usersService.getUserByName(name);
-        if (dataUser) {
-            res.status(400).json({
-                status: "Erreur",
+                status: "Fail",
                 message: "Compte déjà existant"
-
             });
             return;
         }

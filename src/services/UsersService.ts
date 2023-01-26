@@ -16,9 +16,10 @@ export class UsersService extends BaseEntity {
 
     }
     //fonction login
-    async getUserByName(userName: string): Promise<Users | undefined> {
-        const data = await Users.findBy({ userName: userName })
+    async getUserByName(name: string): Promise<Users | undefined> {
+        const data = await Users.findBy({ userName: name })
 
+        console.log(data);
 
         if (data[0]) {
             return data[0];
