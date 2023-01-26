@@ -21,8 +21,6 @@ export class MenusController extends BaseEntity {
         }
         try {
             const menu = await menuService.addMenu(restoMenu, priceMenu);
-
-
             if (menu) {
                 res.status(201).json({
                     status: "Create",
@@ -84,12 +82,28 @@ export class MenusController extends BaseEntity {
     async putMenu(req: Request, res: Response) {
         const restoId = parseInt(req.params.id);
         const name: string = req.body.menu;
-        const price: number = req.body.price
-        const putMenu = await menuService.putMenu(restoId, name, price);
-        res.status(200).json({
-            status: "Success",
-            message: "Modification effectuée",
-            data: putMenu
-        })
+        const price: number = req.body.price;
+
+        if (name) {
+            res.status(200).json({
+                status: "impossible",
+                message: "Aucune modification détecté"
+            });
+            return;
+        }
+        try {
+            const putMenu = await menuService.putMenu(restoId, name, price);
+            res.status(200).json({
+                status: "Success",
+                message: "Modification effectuée",
+                data: putMenu
+            })
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: " erreur serveur",
+            });
+            console.log(err.stack);
+        }
     }
 }

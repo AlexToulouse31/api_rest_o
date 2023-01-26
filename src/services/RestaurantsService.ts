@@ -8,8 +8,8 @@ export class RestaurantService extends BaseEntity {
             return resto;
         }
         return undefined;
-    } async getRestaurantById(restoid: number): Promise<Restaurant | undefined> {
-        const resto: Restaurant | undefined = await Restaurant.findOneBy({ id: restoid });
+    } async getRestaurantByName(restoid: string): Promise<Restaurant | undefined> {
+        const resto: Restaurant | undefined = await Restaurant.findOneBy({ restoVille: restoid });
 
         if (resto) {
             return resto;

@@ -1,5 +1,6 @@
 import { BaseEntity } from "typeorm";
 import { Menu } from "../entity/Menu";
+import { Restaurant } from "../entity/Restaurant";
 
 export class MenusService extends BaseEntity {
 
@@ -13,6 +14,7 @@ export class MenusService extends BaseEntity {
 
     async selectMenuById(id: number): Promise<Menu[] | undefined> {
         const menuId: Menu[] | undefined = await Menu.findBy({ id });
+
         if (menuId) {
             return menuId;
         }
@@ -27,7 +29,6 @@ export class MenusService extends BaseEntity {
         menu.price = priceMenu;
         await Menu.save(menu);
         if (menu) {
-
             return menu;
         }
         return undefined
@@ -44,8 +45,11 @@ export class MenusService extends BaseEntity {
 
     async putMenu(id: number, name: string, price: number): Promise<Menu[] | undefined> {
         const updateMenu: Menu[] | undefined = await Menu.findBy({ id });
+
         updateMenu[0].menuName = name
         updateMenu[0].price = price
+
+
 
         await Menu.save(updateMenu);
         if (updateMenu) {

@@ -6,11 +6,11 @@ import { UsersService } from "../services/UsersService"
 @Entity()
 export class Users extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number
 
-    @Column()
-    userName: string
+  @Column()
+  userName: string
 
   @Column()
   password: string
@@ -18,6 +18,12 @@ export class Users extends BaseEntity {
   admin: boolean
 
 
+  /*@OneToMany(() => Restaurant, (restaurant) => restaurant.restoVille)
+  @JoinColumn({ referencedColumnName: 'restoVille' })
+  restaurant: Restaurant[]
 
+  @OneToMany(() => Commande, (commande) => commande.id)
+  @JoinColumn({ name: 'id' })
+  commande: Commande[]*/
 
 }

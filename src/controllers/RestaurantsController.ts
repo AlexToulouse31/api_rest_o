@@ -9,7 +9,14 @@ const restaurantService = new RestaurantService();
 export class RestaurantController extends BaseEntity {
     async add(req: Request, res: Response) {
         const restoVille: string = req.body.restaurant;
-        //  const user_id = req.userId;
+        const restoCherche = await restaurantService.getRestaurantByName(restoVille);
+        if (restoCherche) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Restaurant déjà existant"
+            });
+            return;
+        }
         if (restoVille !== restoVille.toString()) {
             res.status(400).json({
                 status: "FAIL",
@@ -17,15 +24,7 @@ export class RestaurantController extends BaseEntity {
             });
             return;
         }
-        /*   if (restoVille === RestaurantService[0].restoVille) {
-               res.status(400).json({
-                   status: "Fail",
-                   message: "Restaurant dèjà existant"
-               });
-               return;
-           }
-   */
-        console.log(Restaurant);
+
 
         try {
             const restau = await restaurantService.addRestaurant(restoVille);
@@ -72,15 +71,24 @@ export class RestaurantController extends BaseEntity {
         }
 
     }
-    async getRestaurantById(req: Request, res: Response) {
-        const restoid: number = parseInt(req.params.id);
-        const chercheResto = await restaurantService.getRestaurantById(restoid);
-        res.status(201).json({
-            status: "success",
-            message: " Ok",
-            data: chercheResto
+    async getRestaurantByName(req: Request, res: Response) {
+        const restoName: string = req.params.name;
 
-        });
+        try {
+            const chercheResto = await restaurantService.getRestaurantByName(restoName);
+            res.status(201).json({
+                status: "success",
+                message: " Ok",
+                data: chercheResto
+
+            });
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: " erreur serveur",
+            });
+            console.log(err.stack);
+        }
     }
     async deleteRestaurant(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
