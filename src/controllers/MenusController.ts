@@ -84,7 +84,8 @@ export class MenusController extends BaseEntity {
         const name: string = req.body.menu;
         const price: number = req.body.price;
 
-        if (name) {
+
+        if (!name) {
             res.status(200).json({
                 status: "impossible",
                 message: "Aucune modification détecté"

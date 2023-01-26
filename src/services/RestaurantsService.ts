@@ -8,8 +8,8 @@ export class RestaurantService extends BaseEntity {
             return resto;
         }
         return undefined;
-    } async getRestaurantByName(restoid: string): Promise<Restaurant | undefined> {
-        const resto: Restaurant | undefined = await Restaurant.findOneBy({ restoVille: restoid });
+    } async getRestaurantByTown(restoName: string): Promise<Restaurant | undefined> {
+        const resto: Restaurant | undefined = await Restaurant.findOneBy({ restoVille: restoName });
 
         if (resto) {
             return resto;
@@ -27,11 +27,11 @@ export class RestaurantService extends BaseEntity {
         }
         return undefined
     }
-    async updateRestaurant(restoId: number, restoVille: string): Promise<Restaurant | undefined> {
+    async updateRestaurant(id: number, restoChoice: string): Promise<Restaurant | undefined> {
 
-        const updateRestaurant: Restaurant | undefined = await Restaurant.findOneBy({ id: restoId })
-        updateRestaurant.restoVille = restoVille;
 
+        const updateRestaurant: Restaurant | undefined = await Restaurant.findOneBy({ id: id })
+        updateRestaurant.restoVille = restoChoice
         await Restaurant.save(updateRestaurant)
         if (updateRestaurant) {
 
@@ -49,5 +49,13 @@ export class RestaurantService extends BaseEntity {
         }
         return removeId[0]
 
+    }
+    async verifByid(idPutResto: number): Promise<Restaurant | undefined> {
+        const idresto: Restaurant | undefined = await Restaurant.findOneBy({ id: idPutResto });
+
+        if (idresto) {
+            return idresto;
+        }
+        return undefined;
     }
 }

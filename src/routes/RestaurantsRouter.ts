@@ -7,7 +7,7 @@ const restaurantRouter = Router();
 const restaurantController = new RestaurantController();
 
 restaurantRouter.get("/", restaurantController.getAllRestaurant);
-restaurantRouter.get("/:name", restaurantController.getRestaurantByName);
+restaurantRouter.get("/:name", restaurantController.getRestaurantByTown);
 restaurantRouter.post("/", restaurantController.add);
 restaurantRouter.delete("/:id", restaurantController.deleteRestaurant);
 restaurantRouter.put("/:id", restaurantController.putRestaurant);
