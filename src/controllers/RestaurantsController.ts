@@ -89,6 +89,20 @@ export class RestaurantController extends BaseEntity {
     }
     async deleteRestaurant(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
+        const test = await restaurantService.verifByid(id);
+        if (typeof id !== 'number') {
+            res.status(400).json({
+                status: "FAIL",
+                message: "L'Id saisie est incorrect"
+            });
+            return;
+        } if (!test) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Le restaurant n'existe pas"
+            });
+            return;
+        }
         try {
             const delRestau = restaurantService.deleteRestaurant(id);
             res.status(200).json({
@@ -116,11 +130,8 @@ export class RestaurantController extends BaseEntity {
             });
             return;
         }
-
         try {
-
             const putResto = await restaurantService.updateRestaurant(idPutResto, restoChoice);
-
             res.status(200).json({
                 status: "Success",
                 message: "Modification effectuée",

@@ -55,6 +55,16 @@ export class MenusService extends BaseEntity {
         }
         return undefined
     }
+    async verifMenuByMenu(restoMenu: string): Promise<Menu | undefined> {
+        const menuId: Menu | undefined = await Menu.findOneBy({ menuName: restoMenu });
+        console.log(menuId);
+        console.log(restoMenu);
+
+        if (menuId) {
+            return menuId;
+        }
+        return undefined
+    }
 }
 
 
