@@ -5,7 +5,7 @@ import * as jwt from "jsonwebtoken";
 import { UsersService } from "../services/UsersService";
 
 const usersService = new UsersService();
-const accessTokenSecret = process.env.ACCESSTOKENSECRET;
+const accessTokenSecret = process.env.AccessTokenSecret;
 export class UsersController extends BaseEntity {
 
     async login(req: Request, res: Response) {
