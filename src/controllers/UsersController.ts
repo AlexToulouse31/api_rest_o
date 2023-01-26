@@ -6,7 +6,7 @@ import { UsersService } from "../services/UsersService";
 import { Users } from "../entity/Users";
 
 const usersService = new UsersService();
-const accessTokenSecret = process.env.ACCESSTOKENSECRET;
+const accessTokenSecret = process.env.AccessTokenSecret;
 export class UsersController extends BaseEntity {
 
     async login(req: Request, res: Response) {

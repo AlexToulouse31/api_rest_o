@@ -39,8 +39,8 @@ export class RestaurantService extends BaseEntity {
             return updateRestaurant
         }
         return undefined
-
-    } async deleteRestaurant(id: number): Promise<Restaurant | undefined> {
+    }
+    async deleteRestaurant(id: number): Promise<Restaurant | undefined> {
 
         const removeId = await Restaurant.findBy({ id })
         await Restaurant.remove(removeId)
