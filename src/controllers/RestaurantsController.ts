@@ -9,7 +9,7 @@ const restaurantService = new RestaurantService();
 export class RestaurantController extends BaseEntity {
     async add(req: Request, res: Response) {
         const restoVille: string = req.body.restaurant;
-        const restoCherche = await restaurantService.getRestaurantByName(restoVille);
+        const restoCherche = await restaurantService.getRestaurantByTown(restoVille);
         if (restoCherche) {
             res.status(400).json({
                 status: "Fail",
@@ -24,8 +24,6 @@ export class RestaurantController extends BaseEntity {
             });
             return;
         }
-
-
         try {
             const restau = await restaurantService.addRestaurant(restoVille);
             if (restau) {
@@ -47,7 +45,6 @@ export class RestaurantController extends BaseEntity {
             });
             console.log(err.stack);
         }
-
     }
     async getAllRestaurant(req: Request, res: Response) {
 
@@ -71,11 +68,11 @@ export class RestaurantController extends BaseEntity {
         }
 
     }
-    async getRestaurantByName(req: Request, res: Response) {
+    async getRestaurantByTown(req: Request, res: Response) {
         const restoName: string = req.params.name;
 
         try {
-            const chercheResto = await restaurantService.getRestaurantByName(restoName);
+            const chercheResto = await restaurantService.getRestaurantByTown(restoName);
             res.status(201).json({
                 status: "success",
                 message: " Ok",
@@ -108,16 +105,33 @@ export class RestaurantController extends BaseEntity {
         }
     }
     async putRestaurant(req: Request, res: Response) {
-        const restoId = parseInt(req.params.id);
-        const restoVille: string = req.body.restaurant;
 
-        const putResto = await restaurantService.updateRestaurant(restoId, restoVille);
+        const restoChoice: string = req.body.restaurant;
+        const idPutResto: number = parseInt(req.params.id)
+        const test = await restaurantService.verifByid(idPutResto);
+        if (!test || typeof restoChoice !== 'string' || typeof idPutResto !== 'number') {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Le restaurant n'existe pas ou bien le format des données saisies est incorrect"
+            });
+            return;
+        }
 
-        res.status(200).json({
-            status: "Success",
-            message: "Modification effectuée",
-            data: putResto
-        })
+        try {
+
+            const putResto = await restaurantService.updateRestaurant(idPutResto, restoChoice);
+
+            res.status(200).json({
+                status: "Success",
+                message: "Modification effectuée",
+                data: putResto
+            })
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: " erreur serveur",
+            });
+            console.log(err.stack);
+        }
     }
-
 }
