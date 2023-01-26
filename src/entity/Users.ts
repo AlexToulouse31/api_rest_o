@@ -3,13 +3,14 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTabl
 import { Commande } from "./Commande"
 import { Restaurant } from "./Restaurant"
 import { UsersService } from "../services/UsersService"
+import { type } from "os"
 @Entity()
 export class Users extends BaseEntity {
 
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column({ type: "varchar", select: false })
   userName: string
 
   @Column()

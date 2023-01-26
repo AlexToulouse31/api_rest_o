@@ -12,16 +12,11 @@ export class UsersController extends BaseEntity {
     async login(req: Request, res: Response) {
         const name: string = req.body.username;
         const password: string = req.body.password;
+
         try {
             const user = await usersService.getUserByName(name)
-            const dataPassword = usersService.getUserByName(password)
-            if (dataPassword) {
-                res.status(404).json({
-                    status: "fail",
-                    message: "password incorrect",
-                    data: null,
-                });
-            }
+
+
             if (user) {
                 bcrypt.compare(password, user.password, async function (err, result) {
                     if (result == true) {
@@ -31,6 +26,11 @@ export class UsersController extends BaseEntity {
                             data: accessToken,
                             message: "logged in",
                         });
+                    } else {
+                        res.status(400).json({
+                            status: "Fail",
+                            message: "Password incorrect"
+                        })
                     }
 
                 })
@@ -52,7 +52,7 @@ export class UsersController extends BaseEntity {
     async register(req: Request, res: Response) {
         const name: string = req.body.username;
         const password: string = req.body.password;
-
+        const admin: boolean = req.body.admin;
         if (!name.toString() || !password.toString()) {
             res.status(400).json({
                 status: "Erreur",
@@ -71,7 +71,7 @@ export class UsersController extends BaseEntity {
         }
         try {
             bcrypt.hash(password, 10, async function (err, hash) {
-                const data = await usersService.addUser(name, hash);
+                const data = await usersService.addUser(name, hash, admin);
 
                 res.status(201).json({
                     status: "success",

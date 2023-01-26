@@ -8,7 +8,7 @@ const restaurantService = new RestaurantService();
 
 export class RestaurantController extends BaseEntity {
     async add(req: Request, res: Response) {
-        const restoVille: string = req.body.restaurant;
+        const restoVille: string = req.body.ville;
         const restoCherche = await restaurantService.getRestaurantByTown(restoVille);
         if (restoCherche) {
             res.status(400).json({

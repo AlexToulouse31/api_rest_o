@@ -5,6 +5,28 @@ import { Users } from '../entity/Users';
 //dotenv.config({ path: ".env" });// Permet d'éviter l'erreur "Client Password must be a string"
 
 export class UsersService extends BaseEntity {
+
+    //fonction login
+    async getUserByName(name: string): Promise<Users | undefined> {
+        const data = await Users.findBy({ userName: name })
+
+        if (data[0]) {
+            return data[0];
+        }
+        return undefined
+    }
+    //fonction register
+    async addUser(Name: string, password: string, admin: boolean): Promise<Users | undefined> {
+        const user = new Users();
+        user.userName = Name;
+        user.password = password;
+        user.admin = admin;
+        await Users.save(user)
+        if (user) {
+            return user
+        }
+        return undefined
+    }
     //fonction pour l'admin
     async allUser(): Promise<Users[] | undefined> {
         const users: Users[] | undefined = await Users.find();
@@ -15,28 +37,7 @@ export class UsersService extends BaseEntity {
         return undefined;
 
     }
-    //fonction login
-    async getUserByName(name: string): Promise<Users | undefined> {
-        const data = await Users.findBy({ userName: name })
 
-        console.log(data);
-
-        if (data[0]) {
-            return data[0];
-        }
-        return undefined
-    }
-    //fonction register
-    async addUser(Name: string, password: string): Promise<Users | undefined> {
-        const user = new Users();
-        user.userName = Name;
-        user.password = password;
-        await Users.save(user)
-        if (user) {
-            return user
-        }
-        return undefined
-    }
     //fonction supprime user
     async deleteUser(id: number): Promise<Users | undefined> {
 

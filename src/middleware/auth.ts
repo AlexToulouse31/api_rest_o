@@ -7,7 +7,7 @@ const accessTokenSecret = process.env.AccessTokenSecret!;
 export function authenticateJWT(req: Request, res: Response, next: () => void) {
     const authHeader = req.headers.authorization;
     const token: string = authHeader.split(" ")[1];
-    console.log(token);
+
 
     if (authHeader) {
         jwt.verify(token, accessTokenSecret, (err: any, decode: any) => {
