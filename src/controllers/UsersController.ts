@@ -3,17 +3,40 @@ import { BaseEntity } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import * as jwt from "jsonwebtoken";
 import { UsersService } from "../services/UsersService";
+import { Users } from "../entity/Users";
 
 const usersService = new UsersService();
 const accessTokenSecret = process.env.AccessTokenSecret;
 export class UsersController extends BaseEntity {
 
     async login(req: Request, res: Response) {
-        const userName: string = req.body.userName;
+        const name: string = req.body.username;
         const password: string = req.body.password;
-        try {
 
-            const user = await usersService.getUserByName(userName);
+        try {
+            const user = await usersService.getUserByName(name);
+            /*const username = (await usersService.allUser());
+              const nomchercher = username.filter((elm) => elm.userName.includes(name))
+                console.log(nomchercher);
+    
+                if (name) {
+                    res.status(400).json({
+                        status: "Erreur",
+                        message: "Utilisateur déjà existant",
+    
+                    });
+                    return;
+                }*/
+            const dataPassword = usersService.getUserByName(password)
+            if (dataPassword) {
+                res.status(404).json({
+                    status: "fail",
+                    message: "password incorrect",
+                    data: null,
+                });
+
+
+            }
             if (user) {
                 bcrypt.compare(password, user.password, async function (err, result) {
                     if (result == true) {
@@ -45,8 +68,34 @@ export class UsersController extends BaseEntity {
         const name: string = req.body.username;
         const password: string = req.body.password;
 
-        bcrypt.hash(password, 10, async function (err, hash) {
-            try {
+        if (!name.toString()) {
+            res.status(400).json({
+                status: "Erreur",
+                message: "Veuillez utiliser le format chaine de caractère",
+
+            });
+            return;
+        }
+        if (!password.toString()) {
+            res.status(400).json({
+                status: "Erreur",
+                message: "Veuillez utiliser le format chaine de caractère",
+
+            });
+            return;
+        }
+
+        const dataUser = usersService.getUserByName(name);
+        if (dataUser) {
+            res.status(400).json({
+                status: "Erreur",
+                message: "Compte déjà existant"
+
+            });
+            return;
+        }
+        try {
+            bcrypt.hash(password, 10, async function (err, hash) {
                 const data = await usersService.addUser(name, hash);
 
                 res.status(201).json({
@@ -54,14 +103,15 @@ export class UsersController extends BaseEntity {
                     message: "register success",
                     data: data,
                 });
-            } catch (err) {
-                res.status(500).json({
-                    status: "fail",
-                    message: "register erreur serveur",
-                });
-                console.log(err.stack);
-            }
-        });
+            })
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: "register erreur serveur",
+            });
+            console.log(err.stack);
+        }
+
     }
     async allUsers(req: Request, res: Response) {
 

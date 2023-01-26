@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { BaseEntity } from "typeorm";
+import { Restaurant } from "../entity/Restaurant";
 import { RestaurantService } from "../services/RestaurantsService";
 
 
@@ -8,7 +9,14 @@ const restaurantService = new RestaurantService();
 export class RestaurantController extends BaseEntity {
     async add(req: Request, res: Response) {
         const restoVille: string = req.body.restaurant;
-        //  const user_id = req.userId;
+        const restoCherche = await restaurantService.getRestaurantByName(restoVille);
+        if (restoCherche) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Restaurant déjà existant"
+            });
+            return;
+        }
         if (restoVille !== restoVille.toString()) {
             res.status(400).json({
                 status: "FAIL",
@@ -16,6 +24,7 @@ export class RestaurantController extends BaseEntity {
             });
             return;
         }
+
 
         try {
             const restau = await restaurantService.addRestaurant(restoVille);
@@ -62,6 +71,25 @@ export class RestaurantController extends BaseEntity {
         }
 
     }
+    async getRestaurantByName(req: Request, res: Response) {
+        const restoName: string = req.params.name;
+
+        try {
+            const chercheResto = await restaurantService.getRestaurantByName(restoName);
+            res.status(201).json({
+                status: "success",
+                message: " Ok",
+                data: chercheResto
+
+            });
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: " erreur serveur",
+            });
+            console.log(err.stack);
+        }
+    }
     async deleteRestaurant(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
         try {
@@ -83,11 +111,7 @@ export class RestaurantController extends BaseEntity {
         const restoId = parseInt(req.params.id);
         const restoVille: string = req.body.restaurant;
 
-
         const putResto = await restaurantService.updateRestaurant(restoId, restoVille);
-        console.log(putResto);
-
-
 
         res.status(200).json({
             status: "Success",
