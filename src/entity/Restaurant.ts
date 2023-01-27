@@ -13,8 +13,7 @@ export class Restaurant extends BaseEntity {
   @Column('varchar')
   restoVille: string
 
-  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: ["insert", "update"] })
-  @JoinColumn([
-    { name: "ville", referencedColumnName: "restoVille" },])
+  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
+  
   commandeId: number
 }

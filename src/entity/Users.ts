@@ -15,16 +15,16 @@ export class Users extends BaseEntity {
 
   @Column()
   password: string
+
   @Column({ type: 'boolean', default: false })
   admin: boolean
 
 
 
-  @OneToMany(() => Menu, (menu) => menu.menuName, { cascade: ["insert", "update"] })
+  @OneToMany(() => Menu, (menu) => menu.menuName, { cascade: true })
+  menuName: string
 
-  menu: Menu[]
-  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: ["insert", "update"] })
-
+  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
   commandeId: number
 
 }
