@@ -5,15 +5,18 @@ import { Users } from "./Users"
 @Entity()
 export class Commande extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number
+  commandeId: number
 
-  /*  @ManyToOne(() => Restaurant, (restaurant) => restaurant.commandeRest)
-    @JoinColumn({ name: 'commandeRest' })
-    commande: Commande[]
-    @ManyToOne(() => Users, (users) => users.commUsers)
-    @JoinColumn({ name: 'commUsers' })
-    users: Users[]
-    @ManyToOne(() => Menu, (menu) => menu.commandeMenu)
-    @JoinColumn({ name: 'commandeMenu' })
-    menu: Menu[]*/
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.restoVille, { cascade: ["insert", "update"] })
+  restaurant: Restaurant[]
+
+  @ManyToOne(() => Users, (users) => users.userName, { cascade: ["insert", "update"] })
+  userName: string
+
+
+  @ManyToOne(() => Menu, (menu) => menu.menuId, { cascade: ["insert", "update"] })
+
+  menuId: number
+
+
 }
