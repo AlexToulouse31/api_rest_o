@@ -1,5 +1,4 @@
 import { Router } from "express";
-import express = require("express")
 import { RestaurantController } from "../controllers/RestaurantsController";
 import { authenticateJWT } from "../middleware/auth";
 import { Admin } from "../middleware/Admin";
