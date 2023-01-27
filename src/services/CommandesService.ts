@@ -5,10 +5,10 @@ import { Users } from "../entity/Users";
 
 export class CommandesService extends BaseEntity {
 
-    /*async addCommande(menu: number, client: string): Promise<Commande | undefined> {
+    async addCommande(menu: number, resto: string): Promise<Commande | undefined> {
         const commande = new Commande();
-        // commande.menuId = menu
-
+        commande.menuId = menu
+        commande.restoVille = resto
 
         await Commande.save(commande)
         console.log(menu);
@@ -16,10 +16,10 @@ export class CommandesService extends BaseEntity {
         if (commande) {
             return commande
         } undefined
-    }*/
+    }
 
     async selectAllCommandes(): Promise<Commande[] | undefined> {
-        const comd : Commande[] | undefined = await Commande.find();
+        const comd: Commande[] | undefined = await Commande.find();
         if (comd) {
             return comd;
         }

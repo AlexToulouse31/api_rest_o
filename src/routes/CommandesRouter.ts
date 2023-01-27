@@ -9,7 +9,7 @@ const commandesRouter = Router();
 const commandesController = new CommandesController();
 
 commandesRouter.get("/", commandesController.getAllCommandes);
-//commandesRouter.post("/", authenticateJWT, Admin, commandesController.getAllCommandes);
+commandesRouter.post("/", authenticateJWT, Admin, commandesController.postCommande);
 //commandesRouter.delete("/:id", authenticateJWT, Admin, commandesController.deleteMenu);
 //commandesRouter.put("/:id", authenticateJWT, Admin, commandesController.putMenu);
 

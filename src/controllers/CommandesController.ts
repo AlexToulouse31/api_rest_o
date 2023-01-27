@@ -4,7 +4,7 @@ import { CommandesService } from "../services/CommandesService";
 
 const commandesService = new CommandesService();
 
-export class CommandesController extends BaseEntity{
+export class CommandesController extends BaseEntity {
 
     async getAllCommandes(req: Request, res: Response) {
         try {
@@ -23,6 +23,15 @@ export class CommandesController extends BaseEntity{
             console.log(err.stack);
         }
     }
+    async postCommande(req: Request, res: Response) {
+        const commandeMenu = req.body.menu;
+        const commandeVille = req.body.ville;
+        const data = await commandesService.addCommande(commandeMenu, commandeVille);
+        res.status(200).json({
+            status: "Ok",
+            message: "Commande passée",
+            data: data
+        })
+    }
 };
 
-    

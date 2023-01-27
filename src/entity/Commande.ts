@@ -7,16 +7,16 @@ export class Commande extends BaseEntity {
   @PrimaryGeneratedColumn()
   commandeId: number
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.restoVille, { cascade: true })
-  restaurant: Restaurant[]
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.restoVille,)
+  @JoinColumn({ referencedColumnName: "restoVille" })
+  restoVille: string
 
-  /*  @ManyToOne(() => Users, (users) => users.userName, { cascade: true })
-    userName: string
+  @ManyToOne(() => Users, (users) => users.userName, { cascade: true })
+  userName: string
 
 
-  @ManyToOne(() => Menu, (menu) => menu.menuId, { cascade: true })
-
+  @ManyToOne(() => Menu, (menu) => menu.menuId)
   menuId: number
-*/
+
 
 }

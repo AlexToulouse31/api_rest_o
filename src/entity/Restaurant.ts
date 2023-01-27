@@ -8,12 +8,11 @@ import { Users } from "./Users"
 export class Restaurant extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id: number
-
-  @Column('varchar')
   restoVille: string
 
-  /*  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
-  
-    commandeId: number*/
+  @Column('integer')
+  id: number
+
+  @OneToMany(() => Commande, (commande) => commande.restoVille)
+  restoville: string
 }
