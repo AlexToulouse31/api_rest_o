@@ -7,8 +7,8 @@ export class CommandesService extends BaseEntity {
 
     async addCommande(menu: number, client: string): Promise<Commande | undefined> {
         const commande = new Commande();
-        commande.menuId = menu
-        commande.userName = client
+        // commande.menuId = menu
+
 
         await Commande.save(commande)
         console.log(menu);

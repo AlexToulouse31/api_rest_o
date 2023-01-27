@@ -14,10 +14,10 @@ export class Menu extends BaseEntity {
     price: number
     priceMenu: any
 
-    @ManyToOne(() => Users, (users) => users.userName, { cascade: ["insert", "update"] })
-
-    usersName: string
-    @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: ["insert", "update"] })
-
-    commandeId: number
+    /*  @ManyToOne(() => Users, (users) => users.userName, { cascade: true })
+  
+      usersName: string
+      @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
+  
+      commandeId: number*/
 }   

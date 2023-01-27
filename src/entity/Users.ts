@@ -20,11 +20,11 @@ export class Users extends BaseEntity {
 
 
 
-  @OneToMany(() => Menu, (menu) => menu.menuName, { cascade: ["insert", "update"] })
+  /*@OneToMany(() => Menu, (menu) => menu.menuName, { cascade: true })
 
-  menu: Menu[]
-  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: ["insert", "update"] })
-
-  commandeId: number
+  menuName: string
+ @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
+  
+    commandeId: number*/
 
 }
