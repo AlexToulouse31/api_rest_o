@@ -1,18 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, BaseEntity } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, BaseEntity, Unique } from "typeorm"
 import { Commande } from "./Commande"
 import { Users } from "./Users"
 
 
 @Entity()
-
+@Unique(["restoVille"])
 export class Restaurant extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  restoVille: string
-
-  @Column('integer')
   id: number
 
-  @OneToMany(() => Commande, (commande) => commande.restoVille)
-  restoville: string
+  @Column('varchar')
+
+  restoVille: string
 }

@@ -18,7 +18,5 @@ export class Users extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   admin: boolean
 
-  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
-  userNameId: number
 
 }

@@ -7,12 +7,19 @@ export class CommandesService extends BaseEntity {
 
     async addCommande(menu: number, resto: string): Promise<Commande | undefined> {
         const commande = new Commande();
+
         commande.menuId = menu
         commande.restoVille = resto
 
         await Commande.save(commande)
-        console.log(menu);
-
+        /*   const test = await Commande.find(
+               {
+                   where: {
+                       menuId: menu,
+                       restoVille: resto
+                   }
+               })
+   */
         if (commande) {
             return commande
         } undefined
