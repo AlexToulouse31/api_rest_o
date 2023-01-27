@@ -4,6 +4,7 @@ import { Request, Response } from "express"
 import userRouter from "./routes/UserRouter";
 import restaurantRouter from "./routes/RestaurantsRouter";
 import menuRouter from "./routes/MenusRouter";
+import commandesRouter from "./routes/CommandesRouter";
 
 
 AppDataSource.initialize()
@@ -38,7 +39,8 @@ AppDataSource.initialize()
         app.use("/api/users", userRouter);
         app.use("/api/restaurant", restaurantRouter);
         app.use("/api/menu", menuRouter);
-        //app.use("/api/commande", commandeRouter);
+
+        app.use("/api/commande", commandesRouter);
 
         app.all("*", function (req, res) {
             res.status(404).end("index not found");

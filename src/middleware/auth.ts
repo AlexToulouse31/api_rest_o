@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 
 
-const accessTokenSecret = process.env.AccessTokenSecret!;
+const accessTokenSecret = process.env.ACCESSTOKENSECRET!;
 
 export function authenticateJWT(req: Request, res: Response, next: () => void) {
     const authHeader = req.headers.authorization;

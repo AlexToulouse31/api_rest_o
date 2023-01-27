@@ -13,7 +13,7 @@ export class MenusService extends BaseEntity {
     }
 
     async selectMenuById(id: number): Promise<Menu[] | undefined> {
-        const menuId: Menu[] | undefined = await Menu.findBy({ id });
+        const menuId: Menu[] | undefined = await Menu.findBy({ menuId: id });
 
         if (menuId) {
             return menuId;
@@ -35,7 +35,7 @@ export class MenusService extends BaseEntity {
     }
 
     async deleteMenu(menuid: number): Promise<Menu[] | undefined> {
-        const delMenu: Menu[] | undefined = await Menu.findBy({ id: menuid });
+        const delMenu: Menu[] | undefined = await Menu.findBy({ menuId: menuid });
         await Menu.remove(delMenu);
         if (delMenu) {
             return delMenu;
@@ -44,7 +44,7 @@ export class MenusService extends BaseEntity {
     }
 
     async putMenu(id: number, name: string, price: number): Promise<Menu[] | undefined> {
-        const updateMenu: Menu[] | undefined = await Menu.findBy({ id: id });
+        const updateMenu: Menu[] | undefined = await Menu.findBy({ menuId: id });
         updateMenu[0].menuName = name
         updateMenu[0].price = price
         await Menu.save(updateMenu);

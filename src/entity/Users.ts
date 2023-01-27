@@ -1,9 +1,9 @@
 
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, BaseEntity } from "typeorm"
 import { Commande } from "./Commande"
-import { Restaurant } from "./Restaurant"
 import { UsersService } from "../services/UsersService"
 import { type } from "os"
+import { Menu } from "./Menu"
 @Entity()
 export class Users extends BaseEntity {
 
@@ -19,12 +19,12 @@ export class Users extends BaseEntity {
   admin: boolean
 
 
-  /*@OneToMany(() => Restaurant, (restaurant) => restaurant.restoVille)
-  @JoinColumn({ referencedColumnName: 'restoVille' })
-  restaurant: Restaurant[]
 
-  @OneToMany(() => Commande, (commande) => commande.id)
-  @JoinColumn({ name: 'id' })
-  commande: Commande[]*/
+  @OneToMany(() => Menu, (menu) => menu.menuName, { cascade: ["insert", "update"] })
+
+  menu: Menu[]
+  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: ["insert", "update"] })
+
+  commandeId: number
 
 }

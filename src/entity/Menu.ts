@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, JoinColumn, OneToOne, BaseEntity } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, JoinColumn, OneToOne, BaseEntity, ManyToOne } from "typeorm"
 import { Commande } from "./Commande"
+import { Users } from "./Users"
 
 @Entity()
 export class Menu extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+    menuId: number
 
     @Column('varchar')
     menuName: string
@@ -13,7 +14,10 @@ export class Menu extends BaseEntity {
     price: number
     priceMenu: any
 
-    /* @OneToOne(() => Commande, (commande) => commande.id)
-     @JoinColumn({ name: 'id' })
-     commande: Commande[]*/
+    @ManyToOne(() => Users, (users) => users.userName, { cascade: ["insert", "update"] })
+
+    usersName: string
+    @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: ["insert", "update"] })
+
+    commandeId: number
 }   
