@@ -4,10 +4,12 @@ import { Request, Response, Router } from "express";
 import { CommandesController } from "../controllers/CommandesController";
 import { authenticateJWT } from "../middleware/auth";
 import { Admin } from "../middleware/Admin";
+
 const commandesRouter = Router();
 const commandesController = new CommandesController();
-//commandesRouter.get("/", commandesController.get);
-commandesRouter.post("/", authenticateJWT, Admin, commandesController.addMenu);
+
+commandesRouter.get("/", commandesController.getAllCommandes);
+//commandesRouter.post("/", authenticateJWT, Admin, commandesController.getAllCommandes);
 //commandesRouter.delete("/:id", authenticateJWT, Admin, commandesController.deleteMenu);
 //commandesRouter.put("/:id", authenticateJWT, Admin, commandesController.putMenu);
 
