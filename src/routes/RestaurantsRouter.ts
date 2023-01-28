@@ -8,8 +8,8 @@ const restaurantController = new RestaurantController();
 
 restaurantRouter.get("/", restaurantController.getAllRestaurant);
 restaurantRouter.get("/:name", restaurantController.getRestaurantByTown);
-restaurantRouter.post("/", authenticateJWT, Admin, restaurantController.add);
-restaurantRouter.delete("/:id", authenticateJWT, Admin, restaurantController.deleteRestaurant);
-restaurantRouter.put("/:id", authenticateJWT, Admin, restaurantController.putRestaurant);
+restaurantRouter.post("/", authenticateJWT, restaurantController.add);
+restaurantRouter.delete("/:id", authenticateJWT, restaurantController.deleteRestaurant);
+restaurantRouter.put("/:id", authenticateJWT, restaurantController.putRestaurant);
 
 export default restaurantRouter;

@@ -9,8 +9,8 @@ const menuRouter = Router();
 const menuController = new MenusController();
 
 menuRouter.get("/", menuController.getAllMenu);
-menuRouter.post("/", authenticateJWT, Admin, menuController.addMenu);
-menuRouter.delete("/:id", authenticateJWT, Admin, menuController.deleteMenu);
-menuRouter.put("/:id", authenticateJWT, Admin, menuController.putMenu);
+menuRouter.post("/", authenticateJWT, menuController.addMenu);
+menuRouter.delete("/:id", authenticateJWT, menuController.deleteMenu);
+menuRouter.put("/:id", authenticateJWT, menuController.putMenu);
 
 export default menuRouter;
