@@ -1,9 +1,9 @@
-import { AppDataSource } from "../data-source";
+
 import express = require("express");
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { MenusController } from "../controllers/MenusController";
 import { authenticateJWT } from "../middleware/auth";
-import { Admin } from "../middleware/Admin";
+
 
 const menuRouter = Router();
 const menuController = new MenusController();

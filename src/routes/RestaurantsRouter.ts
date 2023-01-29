@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { RestaurantController } from "../controllers/RestaurantsController";
 import { authenticateJWT } from "../middleware/auth";
-import { Admin } from "../middleware/Admin";
+
 
 const restaurantRouter = Router();
 const restaurantController = new RestaurantController();

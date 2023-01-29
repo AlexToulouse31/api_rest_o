@@ -13,6 +13,7 @@ export class CommandesController extends BaseEntity {
         * 
         */
     async getAllCommandes(req: Request, res: Response) {
+
         try {
             const data = await commandesService.selectAllCommandes();
 
@@ -35,7 +36,9 @@ export class CommandesController extends BaseEntity {
      * @param req :numero du menu
      * @param req :ville du restaurant 
      * @param req :Client 
-     * 
+     * * condition 1 : les parametres de la commande sont au bon format
+     * * condition 2 : le client existe et il est bien logger avec son token
+     * * condition 3 : le menu existe
      *
      */
     async postCommande(req: Request, res: Response) {
@@ -89,6 +92,15 @@ export class CommandesController extends BaseEntity {
             console.log(err.stack);
         }
     }
+    /**
+     * fonction putCommande
+     * @param req Id de la commande
+     * @param req menu que l'on veux modifier
+     * @param req Ville que l'on veux changer
+     * * condition 1 : les parametres de la commande sont au bon format
+     * * condition 2: vérification que la commande existe
+     * * condition 3: Que le token est bon
+     */
     async putCommande(req: Request, res: Response) {
         const idCommande: number = parseInt(req.params.id);
         const commandeMenu = req.body.menu;
@@ -97,7 +109,7 @@ export class CommandesController extends BaseEntity {
         const detailClient = await commandesService.verifPassword(token)
         const controlleCommande = await commandesService.getCommandeById(idCommande)
 
-        if (typeof idCommande !== 'number') {
+        if (typeof idCommande !== 'number' || typeof commandeMenu !== 'number' || typeof commandeVille !== 'string') {
             res.status(400).json({
                 status: "Fail",
                 message: "Veuillez rentrer un id au format nombre"
@@ -135,6 +147,14 @@ export class CommandesController extends BaseEntity {
             console.log(err.stack);
         }
     }
+    /**
+     * fonction deleteCommande
+     * @param req Id de la commande
+     * 
+     * * condition 1 : le parametre de l'ID est au bon format
+     * * condition 2: vérification que la commande existe
+     * * condition 3: Que le token est bon
+     */
     async deleteCommande(req: Request, res: Response) {
         const idCommande: number = parseInt(req.params.id);
         const controlleCommande = await commandesService.getCommandeById(idCommande)

@@ -18,20 +18,6 @@ export class CommandesService extends BaseEntity {
         } undefined
     }
 
-    async selectAllCommandes(): Promise<Commande[] | undefined> {
-        const comd: Commande[] | undefined = await Commande.find();
-        if (comd) {
-            return comd;
-        }
-        return undefined
-    }
-    async getCommandeById(idCommande: number): Promise<Commande[] | undefined> {
-        const comd: Commande[] | undefined = await Commande.findBy({ commandeId: idCommande });
-        if (comd) {
-            return comd;
-        }
-        return undefined
-    }
 
     async putCommandeById(id: number, commandeMenu: number, commandeVille: string): Promise<Commande | undefined> {
         const updateCommande: Commande | undefined = await Commande.findOneBy({ commandeId: id })
@@ -91,6 +77,7 @@ export class CommandesService extends BaseEntity {
 
     }
 
+
     async affichUser(client: string): Promise<Users | undefined> {
         const users: Users | undefined = await Users.findOneBy({ userName: client });
 
@@ -101,6 +88,21 @@ export class CommandesService extends BaseEntity {
         return undefined;
 
     }
+    async selectAllCommandes(): Promise<Commande[] | undefined> {
+        const comd: Commande[] | undefined = await Commande.find();
+        if (comd) {
+            return comd;
+        }
+        return undefined
+    }
+    async getCommandeById(idCommande: number): Promise<Commande[] | undefined> {
+        const comd: Commande[] | undefined = await Commande.findBy({ commandeId: idCommande });
+        if (comd) {
+            return comd;
+        }
+        return undefined
+    }
+
 
 }
 
