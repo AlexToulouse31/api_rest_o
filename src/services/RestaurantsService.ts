@@ -1,6 +1,11 @@
 import { BaseEntity } from "typeorm";
 import { Restaurant } from "../entity/Restaurant";
 export class RestaurantService extends BaseEntity {
+    /**
+     * 
+     * @returns La liste des restaurant enregistrer
+     * * Fonction resersvé a l'admin
+     */
     async allRestaurant(): Promise<Restaurant[] | undefined> {
         const resto: Restaurant[] | undefined = await Restaurant.find();
 

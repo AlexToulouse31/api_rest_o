@@ -5,11 +5,11 @@ import { Users } from "../entity/Users";
 
 export class CommandesService extends BaseEntity {
 
-    async addCommande(menu: number, resto: string, client: number): Promise<Commande | undefined> {
+    async addCommande(menu: number, resto: string, client: string): Promise<Commande | undefined> {
         const commande = new Commande();
         commande.menuId = menu
         commande.restoVille = resto
-        commande.usersId = client
+        commande.usersName = client
 
         await Commande.save(commande)
 
@@ -26,11 +26,11 @@ export class CommandesService extends BaseEntity {
         return undefined
     } async affichageCommande(menu: number): Promise<Menu | undefined> {
 
-        const tmenu = await Menu.createQueryBuilder().select("menu")
+        const AfficheMenu = await Menu.createQueryBuilder().select("menu")
             .from(Menu, "menu").where('Menu.menuId = :id', { id: menu }).getOne()
 
-        if (tmenu) {
-            return tmenu
+        if (AfficheMenu) {
+            return AfficheMenu
 
         }
     }
@@ -43,8 +43,8 @@ export class CommandesService extends BaseEntity {
         }
         return undefined
     }
-    async verifUser(client: number): Promise<Users | undefined> {
-        const users: Users | undefined = await Users.findOneBy({ usersId: client });
+    async verifUser(client: string): Promise<Users | undefined> {
+        const users: Users | undefined = await Users.findOneBy({ userName: client });
 
         if (users) {
             return users;
@@ -52,5 +52,17 @@ export class CommandesService extends BaseEntity {
         return undefined;
 
     }
+
+    async affichUser(client: string): Promise<Users | undefined> {
+        const users: Users | undefined = await Users.findOneBy({ userName: client });
+
+
+        if (users) {
+            return users;
+        }
+        return undefined;
+
+    }
+
 }
 

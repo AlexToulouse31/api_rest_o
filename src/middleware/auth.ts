@@ -18,9 +18,11 @@ export function authenticateJWT(req: Request, res: Response, next: () => void) {
                 });
             }
             else {
-                req.body.idToken = decode.id;
+                req.body.idToken = decode;
                 req.body.admin = decode.admin;
                 next();
+
+
             }
         });
     } else {

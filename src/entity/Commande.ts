@@ -21,8 +21,8 @@ export class Commande extends BaseEntity {
   @ManyToOne(() => Users, (users) => users.usersId, {
     cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false, eager: true
   })
-  @JoinColumn()
-  usersId: number
+  @JoinColumn({ referencedColumnName: "userName" })
+  usersName: string
 
 
   @ManyToOne(() => Menu, (menu) => menu.menuId, {

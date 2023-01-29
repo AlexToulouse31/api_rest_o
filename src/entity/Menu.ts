@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
 
 @Entity()
 export class Menu extends BaseEntity {
+
     @PrimaryGeneratedColumn()
     menuId: number
 
@@ -11,7 +12,7 @@ export class Menu extends BaseEntity {
 
     @Column({ type: 'numeric' })
     price: number
-    priceMenu: any
+
 
 
 }   
