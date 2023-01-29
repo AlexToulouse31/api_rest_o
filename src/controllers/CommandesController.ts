@@ -93,8 +93,8 @@ export class CommandesController extends BaseEntity {
         const idCommande: number = parseInt(req.params.id);
         const commandeMenu = req.body.menu;
         const commandeVille = req.body.ville;
-        const token = req.body.idToken
-        const detailClient = await commandesService.verifUser(token)
+        const token = req.body.idToken;
+        const detailClient = await commandesService.verifPassword(token)
         const controlleCommande = await commandesService.getCommandeById(idCommande)
 
         if (typeof idCommande !== 'number') {
@@ -104,26 +104,26 @@ export class CommandesController extends BaseEntity {
             });
             return;
         }
-            if (!controlleCommande) {
-                res.status(400).json({
-                    status: "Fail",
-                    message: "Commande inexistante"
-                });
-                return;
-            }
-                if (token !== detailClient){
-                    res.status(400).json({
-                        status: "Fail",
-                        message: "Vous n'êtes pas autorisé à modifier cette commande"
-                    });
-                return;
-            }
-        
+        if (!controlleCommande) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Commande inexistante"
+            });
+            return;
+        }
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Vous n'êtes pas autorisé à modifier cette commande"
+            });
+            return;
+        }
+
         try {
             const data = await commandesService.putCommandeById(idCommande, commandeMenu, commandeVille);
             res.status(200).json({
                 status: "Ok",
-                message: "Commande modifiée", 
+                message: "Commande modifiée",
                 data: data
             })
         }

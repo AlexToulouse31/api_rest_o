@@ -33,8 +33,10 @@ export class CommandesService extends BaseEntity {
         return undefined
     }
 
-    async putCommandeById(id: number, commandeMenu: string, commandeVille: string): Promise<Commande | undefined> {
+    async putCommandeById(id: number, commandeMenu: number, commandeVille: string): Promise<Commande | undefined> {
         const updateCommande: Commande | undefined = await Commande.findOneBy({ commandeId: id })
+        updateCommande.restoVille = commandeVille;
+        updateCommande.menuId = commandeMenu
         await Commande.save(updateCommande)
         if (updateCommande) {
             return updateCommande
