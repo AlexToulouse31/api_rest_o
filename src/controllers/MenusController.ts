@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { BaseEntity } from "typeorm";
-import { Menu } from "../entity/Menu";
 import { MenusService } from "../services/MenusService";
 
 const menuService = new MenusService();

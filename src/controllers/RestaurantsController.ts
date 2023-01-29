@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { BaseEntity } from "typeorm";
-import { Restaurant } from "../entity/Restaurant";
 import { RestaurantService } from "../services/RestaurantsService";
 
 

@@ -9,7 +9,7 @@ export class Commande extends BaseEntity {
   commandeId: number
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.restoVille, {
-    cascade: ["insert", "update", "remove"],
+    cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false,
 
     eager: true,
   })
@@ -18,17 +18,15 @@ export class Commande extends BaseEntity {
 
 
 
-  @ManyToOne(() => Users, (users) => users.userName, {
-    cascade: ["insert", "update", "remove"],
-
-    eager: true,
+  @ManyToOne(() => Users, (users) => users.usersId, {
+    cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false, eager: true
   })
   @JoinColumn()
-  userName: string
+  usersId: number
 
 
   @ManyToOne(() => Menu, (menu) => menu.menuId, {
-    cascade: ["insert", "update", "remove"],
+    cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false,
 
     eager: true,
   })

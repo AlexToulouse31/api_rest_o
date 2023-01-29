@@ -41,7 +41,7 @@ export class UsersService extends BaseEntity {
     //fonction supprime user
     async deleteUser(id: number): Promise<Users | undefined> {
 
-        const removeId = await Users.findBy({ id })
+        const removeId = await Users.findBy({ usersId: id })
         await Users.remove(removeId)
         if (removeId === undefined) {
             return undefined

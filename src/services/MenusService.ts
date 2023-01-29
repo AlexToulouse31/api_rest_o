@@ -1,6 +1,6 @@
 import { BaseEntity } from "typeorm";
 import { Menu } from "../entity/Menu";
-import { Restaurant } from "../entity/Restaurant";
+
 
 export class MenusService extends BaseEntity {
 
