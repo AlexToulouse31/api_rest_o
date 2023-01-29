@@ -7,6 +7,7 @@ import { CommandesService } from "../services/CommandesService";
 const commandesService = new CommandesService();
 
 export class CommandesController extends BaseEntity {
+
     /**
         * * Fonction getAllCommande sert qu'a l'admin pour consulter les menus commandés.
         * 
@@ -94,7 +95,7 @@ export class CommandesController extends BaseEntity {
         const commandeVille = req.body.ville;
         const token = req.body.idToken
         const detailClient = await commandesService.verifUser(token)
-        const data = await commandesService.putCommandeById(idCommande, commandeMenu, commandeVille);
+        const controlleCommande = await commandesService.getCommandeById(idCommande)
 
         if (typeof idCommande !== 'number') {
             res.status(400).json({
@@ -103,22 +104,23 @@ export class CommandesController extends BaseEntity {
             });
             return;
         }
-            if (!data.commandeId) {
+            if (!controlleCommande) {
                 res.status(400).json({
                     status: "Fail",
                     message: "Commande inexistante"
                 });
                 return;
             }
-                if (token !== detailClient)
+                if (token !== detailClient){
                     res.status(400).json({
                         status: "Fail",
                         message: "Vous n'êtes pas autorisé à modifier cette commande"
                     });
                 return;
             }
-        }
+        
         try {
+            const data = await commandesService.putCommandeById(idCommande, commandeMenu, commandeVille);
             res.status(200).json({
                 status: "Ok",
                 message: "Commande modifiée", 
@@ -132,16 +134,53 @@ export class CommandesController extends BaseEntity {
             });
             console.log(err.stack);
         }
-    
+    }
     async deleteCommande(req: Request, res: Response) {
         const idCommande: number = parseInt(req.params.id);
-        const data = await commandesService.deleteCommandeById(idCommande);
+        const controlleCommande = await commandesService.getCommandeById(idCommande)
         const token = req.body.idToken
-        res.status(200).json({
-            status: "Ok",
-            message: "Commande supprimée",
-            data: data
-        })
+        const detailClient = await commandesService.verifPassword(token)
+
+
+
+
+        if (typeof idCommande !== 'number') {
+            res.status(400).json({
+                status: "Fail",
+                message: "Veuillez saisir un id au format nombre"
+            });
+            return;
+
+        }
+        if (!controlleCommande) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Commande inexistante"
+            });
+            return;
+        }
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Vous n'êtes pas autorisé à supprimé cette commande "
+            });
+            return;
+        }
+
+        try {
+            const data = await commandesService.deleteCommandeById(idCommande);
+            res.status(200).json({
+                status: "Ok",
+                message: "Commande supprimée",
+                data: data
+            })
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: "commande delete erreur serveur",
+            });
+            console.log(err.stack);
+        }
     }
 
 };
