@@ -20,11 +20,4 @@ export class Users extends BaseEntity {
   admin: boolean
 
 
-
-  @OneToMany(() => Menu, (menu) => menu.menuName, { cascade: true })
-  menuName: string
-
-  @OneToMany(() => Commande, (commande) => commande.commandeId, { cascade: true })
-  commandeId: number
-
 }

@@ -8,7 +8,7 @@ const restaurantService = new RestaurantService();
 
 export class RestaurantController extends BaseEntity {
     async add(req: Request, res: Response) {
-        const restoVille: string = req.body.ville;
+        const restoVille = req.body.ville;
         const restoCherche = await restaurantService.getRestaurantByTown(restoVille);
         if (restoCherche) {
             res.status(400).json({
@@ -26,6 +26,8 @@ export class RestaurantController extends BaseEntity {
         }
         try {
             const restau = await restaurantService.addRestaurant(restoVille);
+
+
             if (restau) {
                 res.status(201).json({
                     status: "Create",
@@ -41,7 +43,7 @@ export class RestaurantController extends BaseEntity {
         } catch (err) {
             res.status(500).json({
                 status: "fail",
-                message: "login erreur serveur",
+                message: "resto erreur serveur",
             });
             console.log(err.stack);
         }

@@ -9,8 +9,8 @@ const commandesRouter = Router();
 const commandesController = new CommandesController();
 
 commandesRouter.get("/", commandesController.getAllCommandes);
-//commandesRouter.post("/", authenticateJWT, Admin, commandesController.getAllCommandes);
-//commandesRouter.delete("/:id", authenticateJWT, Admin, commandesController.deleteMenu);
-//commandesRouter.put("/:id", authenticateJWT, Admin, commandesController.putMenu);
+commandesRouter.post("/", authenticateJWT, commandesController.postCommande);
+commandesRouter.delete("/:id", authenticateJWT, commandesController.deleteCommande);
+commandesRouter.put("/:id", authenticateJWT, commandesController.putCommande);
 
 export default commandesRouter;
