@@ -101,9 +101,11 @@ export class CommandesController extends BaseEntity {
     }
     async deleteCommande(req: Request, res: Response) {
         const idCommande: number = parseInt(req.params.id);
-        const data = await commandesService.deleteCommandeById(idCommande);
+        const controlleCommande = await commandesService.getCommandeById(idCommande)
         const token = req.body.idToken
         const detailClient = await commandesService.verifPassword(token)
+
+
 
 
         if (typeof idCommande !== 'number') {
@@ -114,22 +116,23 @@ export class CommandesController extends BaseEntity {
             return;
 
         }
-        if (!data.commandeId) {
+        if (!controlleCommande) {
             res.status(400).json({
                 status: "Fail",
                 message: "Commande inexistante"
             });
             return;
         }
-        if (token !== detailClient) {
+        if (token !== detailClient.password) {
             res.status(400).json({
                 status: "Fail",
-                message: "blabla"
+                message: "Vous n'êtes pas autorisé à supprimé cette commande "
             });
             return;
         }
 
         try {
+            const data = await commandesService.deleteCommandeById(idCommande);
             res.status(200).json({
                 status: "Ok",
                 message: "Commande supprimée",
