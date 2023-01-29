@@ -6,6 +6,7 @@ import { CommandesService } from "../services/CommandesService";
 const commandesService = new CommandesService();
 
 export class CommandesController extends BaseEntity {
+
     /**
         * * Fonction getAllCommande sert qu'a l'admin pour consulter les menus commandés.
         * 
@@ -41,10 +42,10 @@ export class CommandesController extends BaseEntity {
         const commandeVille = req.body.ville;
         const commandeUser = req.body.client;
         const detail = await commandesService.affichageCommande(commandeMenu);
-
+        const token = req.body.idToken
         const verifMenu = await commandesService.verifMenuById(commandeMenu)
         const detailClient = await commandesService.verifUser(commandeUser)
-        const token = req.body.idToken
+
 
 
         if (typeof commandeVille !== 'string' && typeof commandeMenu !== 'number' && typeof commandeUser !== 'string') {
@@ -101,11 +102,46 @@ export class CommandesController extends BaseEntity {
     async deleteCommande(req: Request, res: Response) {
         const idCommande: number = parseInt(req.params.id);
         const data = await commandesService.deleteCommandeById(idCommande);
-        res.status(200).json({
-            status: "Ok",
-            message: "Commande supprimée",
-            data: data
-        })
+        const token = req.body.idToken
+        const detailClient = await commandesService.verifPassword(token)
+
+
+        if (typeof idCommande !== 'number') {
+            res.status(400).json({
+                status: "Fail",
+                message: "Veuillez saisir un id au format nombre"
+            });
+            return;
+
+        }
+        if (!data.commandeId) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Commande inexistante"
+            });
+            return;
+        }
+        if (token !== detailClient) {
+            res.status(400).json({
+                status: "Fail",
+                message: "blabla"
+            });
+            return;
+        }
+
+        try {
+            res.status(200).json({
+                status: "Ok",
+                message: "Commande supprimée",
+                data: data
+            })
+        } catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: "commande delete erreur serveur",
+            });
+            console.log(err.stack);
+        }
     }
 
 };

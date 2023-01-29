@@ -72,6 +72,15 @@ export class CommandesService extends BaseEntity {
         return undefined;
 
     }
+    async verifPassword(token: string): Promise<Users | undefined> {
+        const users: Users | undefined = await Users.findOneBy({ password: token });
+
+        if (users) {
+            return users;
+        }
+        return undefined;
+
+    }
 
     async affichUser(client: string): Promise<Users | undefined> {
         const users: Users | undefined = await Users.findOneBy({ userName: client });
