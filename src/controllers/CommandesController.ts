@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { restart } from "nodemon";
 import { BaseEntity } from "typeorm";
 import { CommandesService } from "../services/CommandesService";
 
@@ -41,10 +42,10 @@ export class CommandesController extends BaseEntity {
         const commandeVille = req.body.ville;
         const commandeUser = req.body.client;
         const detail = await commandesService.affichageCommande(commandeMenu);
-
+        const token = req.body.idToken
         const verifMenu = await commandesService.verifMenuById(commandeMenu)
         const detailClient = await commandesService.verifUser(commandeUser)
-        const token = req.body.idToken
+
 
 
         if (typeof commandeVille !== 'string' && typeof commandeMenu !== 'number' && typeof commandeUser !== 'string') {
@@ -91,16 +92,51 @@ export class CommandesController extends BaseEntity {
         const idCommande: number = parseInt(req.params.id);
         const commandeMenu = req.body.menu;
         const commandeVille = req.body.ville;
+        const token = req.body.idToken
+        const detailClient = await commandesService.verifUser(token)
         const data = await commandesService.putCommandeById(idCommande, commandeMenu, commandeVille);
-        res.status(200).json({
-            status: "Ok",
-            message: "Commande modifiée",
-            data: data
-        })
-    }
+
+        if (typeof idCommande !== 'number') {
+            res.status(400).json({
+                status: "Fail",
+                message: "Veuillez rentrer un id au format nombre"
+            });
+            return;
+        }
+            if (!data.commandeId) {
+                res.status(400).json({
+                    status: "Fail",
+                    message: "Commande inexistante"
+                });
+                return;
+            }
+                if (token !== detailClient)
+                    res.status(400).json({
+                        status: "Fail",
+                        message: "Vous n'êtes pas autorisé à modifier cette commande"
+                    });
+                return;
+            }
+        }
+        try {
+            res.status(200).json({
+                status: "Ok",
+                message: "Commande modifiée", 
+                data: data
+            })
+        }
+        catch (err) {
+            res.status(500).json({
+                status: "fail",
+                message: "commande put erreur serveur",
+            });
+            console.log(err.stack);
+        }
+    
     async deleteCommande(req: Request, res: Response) {
         const idCommande: number = parseInt(req.params.id);
         const data = await commandesService.deleteCommandeById(idCommande);
+        const token = req.body.idToken
         res.status(200).json({
             status: "Ok",
             message: "Commande supprimée",
