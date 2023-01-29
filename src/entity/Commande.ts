@@ -32,6 +32,5 @@ export class Commande extends BaseEntity {
   })
   @JoinColumn()
   menuId: number
-
-
+  
 }

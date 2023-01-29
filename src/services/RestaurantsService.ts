@@ -53,7 +53,6 @@ export class RestaurantService extends BaseEntity {
             return undefined
         }
         return removeId[0]
-
     }
     async verifByid(idPutResto: number): Promise<Restaurant | undefined> {
         const idresto: Restaurant | undefined = await Restaurant.findOneBy({ id: idPutResto });

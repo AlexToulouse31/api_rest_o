@@ -14,5 +14,4 @@ export class Menu extends BaseEntity {
     price: number
 
 
-
 }   

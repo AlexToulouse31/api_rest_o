@@ -12,6 +12,7 @@ export class Users extends BaseEntity {
 
   @Column()
   password: string
+
   @Column({ type: 'boolean', default: false })
   admin: boolean
 

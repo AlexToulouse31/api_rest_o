@@ -24,7 +24,27 @@ export class CommandesService extends BaseEntity {
             return comd;
         }
         return undefined
-    } async affichageCommande(menu: number): Promise<Menu | undefined> {
+    }
+
+    async putCommandeById(id: number, commandeMenu: string, commandeVille: string): Promise<Commande | undefined> {
+        const updateCommande: Commande | undefined = await Commande.findOneBy({ commandeId: id })
+        await Commande.save(updateCommande)
+        if (updateCommande) {
+            return updateCommande
+        }
+        return undefined
+    }
+
+    async deleteCommandeById(id: number): Promise<Commande | undefined> {
+        const removeId = await Commande.findBy({ commandeId: id })
+        await Commande.remove(removeId)
+        if (removeId === undefined) {
+            return undefined
+        }
+        return removeId[0]
+    }
+
+    async affichageCommande(menu: number): Promise<Menu | undefined> {
 
         const AfficheMenu = await Menu.createQueryBuilder().select("menu")
             .from(Menu, "menu").where('Menu.menuId = :id', { id: menu }).getOne()

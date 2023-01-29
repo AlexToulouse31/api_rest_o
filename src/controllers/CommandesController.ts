@@ -87,5 +87,26 @@ export class CommandesController extends BaseEntity {
             console.log(err.stack);
         }
     }
+    async putCommande(req: Request, res: Response) {
+        const idCommande: number = parseInt(req.params.id);
+        const commandeMenu = req.body.menu;
+        const commandeVille = req.body.ville;
+        const data = await commandesService.putCommandeById(idCommande, commandeMenu, commandeVille);
+        res.status(200).json({
+            status: "Ok",
+            message: "Commande modifiée",
+            data: data
+        })
+    }
+    async deleteCommande(req: Request, res: Response) {
+        const idCommande: number = parseInt(req.params.id);
+        const data = await commandesService.deleteCommandeById(idCommande);
+        res.status(200).json({
+            status: "Ok",
+            message: "Commande supprimée",
+            data: data
+        })
+    }
+
 };
 
