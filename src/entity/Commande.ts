@@ -8,18 +8,28 @@ export class Commande extends BaseEntity {
   @PrimaryGeneratedColumn()
   commandeId: number
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.restoVille)
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.restoVille, {
+    cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false,
+
+    eager: true,
+  })
   @JoinColumn({ referencedColumnName: "restoVille" })
   restoVille: string
 
 
 
-  @ManyToOne(() => Users, (users) => users.userName)
+  @ManyToOne(() => Users, (users) => users.usersId, {
+    cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false, eager: true
+  })
   @JoinColumn()
-  userName: string
+  usersId: number
 
 
-  @ManyToOne(() => Menu, (menu) => menu.menuId)
+  @ManyToOne(() => Menu, (menu) => menu.menuId, {
+    cascade: ["insert", "update"], onDelete: "CASCADE", nullable: false,
+
+    eager: true,
+  })
   @JoinColumn()
   menuId: number
   

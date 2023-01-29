@@ -4,10 +4,10 @@ import * as jwt from "jsonwebtoken";
 
 const accessTokenSecret = process.env.ACCESSTOKENSECRET!;
 
+
 export function authenticateJWT(req: Request, res: Response, next: () => void) {
     const authHeader = req.headers.authorization;
     const token: string = authHeader.split(" ")[1];
-
 
     if (authHeader) {
         jwt.verify(token, accessTokenSecret, (err: any, decode: any) => {
@@ -23,6 +23,11 @@ export function authenticateJWT(req: Request, res: Response, next: () => void) {
                 next();
             }
         });
+    } else {
+        res.status(500).json({
+            status: "Fail",
+            message: "Vous devez être connecter pour accéder à ces fonctions"
+        })
     }
 }
 

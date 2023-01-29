@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, BaseEntity, Unique } from "typeorm"
-import { Commande } from "./Commande"
-import { Users } from "./Users"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Unique } from "typeorm"
+
 
 
 @Entity()

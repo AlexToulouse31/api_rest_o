@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, JoinColumn, OneToOne, BaseEntity, ManyToOne } from "typeorm"
-import { Commande } from "./Commande"
-import { Users } from "./Users"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+
 
 @Entity()
 export class Menu extends BaseEntity {

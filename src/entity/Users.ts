@@ -1,16 +1,14 @@
 
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, JoinColumn, BaseEntity } from "typeorm"
-import { Commande } from "./Commande"
-import { UsersService } from "../services/UsersService"
-import { type } from "os"
-import { Menu } from "./Menu"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
+
 @Entity()
+
 export class Users extends BaseEntity {
 
   @PrimaryGeneratedColumn()
-  id: number
+  usersId: number
 
-  @Column({ type: "varchar", select: false })
+  @Column({ type: "varchar" })
   userName: string
 
   @Column()
@@ -18,6 +16,5 @@ export class Users extends BaseEntity {
 
   @Column({ type: 'boolean', default: false })
   admin: boolean
-
 
 }
