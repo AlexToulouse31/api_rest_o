@@ -3,6 +3,7 @@ import express = require("express");
 import { Router } from "express";
 import { MenusController } from "../controllers/MenusController";
 import { authenticateJWT } from "../middleware/auth";
+import { Admin } from "../middleware/Admin";
 
 
 const menuRouter = Router();

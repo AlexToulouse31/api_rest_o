@@ -9,6 +9,19 @@ export class RestaurantController extends BaseEntity {
     async add(req: Request, res: Response) {
         const restoVille = req.body.ville;
         const restoCherche = await restaurantService.getRestaurantByTown(restoVille);
+        const token = req.body.idToken;
+        const detailClient = await restaurantService.verifPassword(token)
+
+
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
+
         if (restoCherche) {
             res.status(400).json({
                 status: "Fail",
@@ -48,7 +61,18 @@ export class RestaurantController extends BaseEntity {
         }
     }
     async getAllRestaurant(req: Request, res: Response) {
+        const token = req.body.idToken;
+        const detailClient = await restaurantService.verifPassword(token)
 
+
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
         try {
 
             const data = await restaurantService.allRestaurant();
@@ -71,6 +95,18 @@ export class RestaurantController extends BaseEntity {
     }
     async getRestaurantByTown(req: Request, res: Response) {
         const restoName: string = req.params.name;
+        const token = req.body.idToken;
+        const detailClient = await restaurantService.verifPassword(token)
+
+
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
 
         try {
             const chercheResto = await restaurantService.getRestaurantByTown(restoName);
@@ -91,6 +127,18 @@ export class RestaurantController extends BaseEntity {
     async deleteRestaurant(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
         const test = await restaurantService.verifByid(id);
+        const token = req.body.idToken;
+        const detailClient = await restaurantService.verifPassword(token)
+
+
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
         if (typeof id !== 'number') {
             res.status(400).json({
                 status: "FAIL",
@@ -124,6 +172,18 @@ export class RestaurantController extends BaseEntity {
         const restoChoice: string = req.body.restaurant;
         const idPutResto: number = parseInt(req.params.id)
         const test = await restaurantService.verifByid(idPutResto);
+        const token = req.body.idToken;
+        const detailClient = await restaurantService.verifPassword(token)
+
+
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
         if (!test || typeof restoChoice !== 'string' || typeof idPutResto !== 'number') {
             res.status(400).json({
                 status: "FAIL",

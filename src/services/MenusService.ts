@@ -1,5 +1,6 @@
 import { BaseEntity } from "typeorm";
 import { Menu } from "../entity/Menu";
+import { Users } from "../entity/Users";
 
 
 export class MenusService extends BaseEntity {
@@ -57,13 +58,19 @@ export class MenusService extends BaseEntity {
     }
     async verifMenuByMenu(restoMenu: string): Promise<Menu | undefined> {
         const menuId: Menu | undefined = await Menu.findOneBy({ menuName: restoMenu });
-        console.log(menuId);
-        console.log(restoMenu);
 
         if (menuId) {
             return menuId;
         }
         return undefined
+    }
+    async verifPassword(token: string): Promise<Users | undefined> {
+        const users: Users | undefined = await Users.findOneBy({ password: token });
+        if (users) {
+            return users;
+        }
+        return undefined;
+
     }
 }
 

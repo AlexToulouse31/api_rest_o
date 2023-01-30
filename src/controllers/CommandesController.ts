@@ -13,7 +13,17 @@ export class CommandesController extends BaseEntity {
         * 
         */
     async getAllCommandes(req: Request, res: Response) {
+        const token = req.body.idToken
+        const detailClient = await commandesService.verifPassword(token)
+        const admin = detailClient.admin;
 
+        if (!admin) {
+            res.status(400).json({
+                status: "Fail",
+                message: "Vous n'êtes pas autorisez à consulter toutes les commandes"
+            })
+
+        }
         try {
             const data = await commandesService.selectAllCommandes();
 

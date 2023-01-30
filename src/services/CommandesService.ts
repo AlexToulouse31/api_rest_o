@@ -69,7 +69,6 @@ export class CommandesService extends BaseEntity {
     }
     async verifPassword(token: string): Promise<Users | undefined> {
         const users: Users | undefined = await Users.findOneBy({ password: token });
-
         if (users) {
             return users;
         }

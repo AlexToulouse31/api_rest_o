@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import { decode } from "punycode";
 import { BaseEntity } from "typeorm";
+import { Admin } from "../middleware/Admin";
 import { MenusService } from "../services/MenusService";
 
 const menuService = new MenusService();
@@ -10,6 +12,18 @@ export class MenusController extends BaseEntity {
         const restoMenu: string = req.body.menu;
         const priceMenu: number = parseInt(req.body.price);
         const verifMenu = await menuService.verifMenuByMenu(restoMenu);
+        const token = req.body.idToken;
+        const detailClient = await menuService.verifPassword(token)
+
+
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
 
 
         if (typeof restoMenu !== 'string' && typeof priceMenu !== 'number') {
@@ -43,6 +57,7 @@ export class MenusController extends BaseEntity {
     }
 
     async getAllMenu(req: Request, res: Response) {
+
         try {
             const data = await menuService.selectAllMenu();
             res.status(201).json({
@@ -63,6 +78,17 @@ export class MenusController extends BaseEntity {
     async deleteMenu(req: Request, res: Response) {
         const id: number = parseInt(req.params.id);
         const verifDelMenuId = await menuService.selectMenuById(id);
+        const token = req.body.idToken;
+        const detailClient = await menuService.verifPassword(token)
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
+
         if (!verifDelMenuId || typeof id !== 'number') {
             res.status(400).json({
                 status: "Fail",
@@ -92,6 +118,17 @@ export class MenusController extends BaseEntity {
         const restoMenu: string = req.body.menu;
         const price: number = req.body.price;
         const verifPutMenuId = await menuService.selectMenuById(id);
+        const token = req.body.idToken;
+        const detailClient = await menuService.verifPassword(token)
+
+        if (token !== detailClient.password) {
+            res.status(400).json({
+                status: "FAIL",
+                message: "Vous n'êtes pas autorisez à ajouter des menus, veuillez vous logger"
+            });
+            return;
+        }
+
 
         if (typeof restoMenu !== 'string' || typeof price !== 'number' || typeof id !== 'number') {
             res.status(400).json({

@@ -1,5 +1,6 @@
 import { BaseEntity } from "typeorm";
 import { Restaurant } from "../entity/Restaurant";
+import { Users } from "../entity/Users";
 export class RestaurantService extends BaseEntity {
     /**
      * 
@@ -61,5 +62,13 @@ export class RestaurantService extends BaseEntity {
             return idresto;
         }
         return undefined;
+    }
+    async verifPassword(token: string): Promise<Users | undefined> {
+        const users: Users | undefined = await Users.findOneBy({ password: token });
+        if (users) {
+            return users;
+        }
+        return undefined;
+
     }
 }
